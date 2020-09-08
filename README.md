@@ -1,4 +1,4 @@
-# MAC SSH Shell 
+# Mac SSH Shell 
 
 Automatically open SSH sessions with a host in a new terminal on Apple Mac. 
 
