@@ -1,9 +1,10 @@
-from subprocess import Popen
+from subprocess import Popen, PIPE
+import subprocess
 import pathlib
 
 class Shell(object):
 
-    def connect(self, hostname="dev", hostaddr="20.0.0.5", password = "ved"):
+    def connect(self, hostname="dev", hostaddr="20.0.0.5", password="ved"):
         """Open Apple Mac terminal and open interactive SSH session with host"""
         # Use AppleScript to open a new terminal and run SSH bash script
         bsPath = str(pathlib.Path(__file__).parent.absolute())
@@ -17,8 +18,16 @@ class Shell(object):
             + password
             + "\"'")
         # Execute as subprocess 
-        p = Popen([cmd], universal_newlines = True, shell=True)
-
+        r = Popen([cmd], universal_newlines = True, shell=True, stdout=PIPE)
+    
+    def copy(self, hostname="dev", hostaddr="20.0.0.5", password="ved", keypath="~/.ssh/id_rsa.pub"):
+        """Share SSH public key with host."""
+        bsPath = str(pathlib.Path(__file__).parent.absolute())
+        cmd = bsPath + "/ssh_copy.sh " + hostname + " " + hostaddr + " " + password + " " + keypath
+        # Execute as subprocess 
+        r = subprocess.getoutput(cmd)
+        return r
+   
 
 ################################################################################
 # Main
@@ -26,7 +35,7 @@ class Shell(object):
 
 if __name__ == '__main__':
     s = Shell()
-    s.connect(hostname="dev", hostaddr="20.0.0.5", password = "ved")
+    s.connect(hostname="dev", hostaddr="192.168.56.101", password="ved")
 
 
 ################################################################################
