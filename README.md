@@ -1,4 +1,4 @@
-# Mac SSH Shell 
+# Mac/Linux SSH Shell 
 
 Automated Pythonic SSH Agent for: 
 * Opening SSH sessions with a host in a new terminal on Apple Mac
